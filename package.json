@@ -1,0 +1,39 @@
+{
+  "name": "aws-lambda-chrome",
+  "version": "0.0.0",
+  "description": "A lambda compatible build of headless chrome.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "check": "eslint .",
+    "postinstall": "node postinstall.js"
+  },
+  "archives": {
+    "chromeFileName": "chrome-headless-lambda-linux-62.0.3181.0.tgz",
+    "nssFileName": "nss-2017-08-10-990be4e30bf8.tgz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github:universalbasket/aws-lambda-chrome"
+  },
+  "keywords": [
+    "chrome",
+    "headless",
+    "lambda",
+    "aws"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/universalbasket/aws-lambda-chrome/issues"
+  },
+  "homepage": "https://github.com/universalbasket/aws-lambda-chrome#readme",
+  "devDependencies": {
+    "eslint": "^4.6.1",
+    "eslint-config-ub": "^2.0.0"
+  },
+  "dependencies": {
+    "rimraf": "2.6.2",
+    "tar": "4.0.1"
+  }
+}
