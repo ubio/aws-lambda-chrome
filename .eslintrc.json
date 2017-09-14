@@ -1,0 +1,9 @@
+{
+    "extends": "ub",
+    "env": {
+        "node": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2017
+    }
+}
