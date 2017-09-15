@@ -1,12 +1,12 @@
 'use strict';
 
-const RAW_PACKAGES_URL = 'https://raw.githubusercontent.com/universalbasket/aws-lambda-chrome/master/builds';
+const archivesBaseUrl = process.env.npm_package_archivesBaseUrl;
 
 const path = require('path');
 const tar = require('tar');
 const rimraf = require('rimraf');
 const fs = require('fs');
-const http = require(RAW_PACKAGES_URL.startsWith('https') ? 'https' : 'http');
+const http = require(archivesBaseUrl.startsWith('https') ? 'https' : 'http');
 
 const chromePath = `/chrome/${process.env.npm_package_archives_chromeFileName}`;
 const nssPath = `/nss/${process.env.npm_package_archives_nssFileName}`;
@@ -26,7 +26,7 @@ function makeExtractDir() {
 
 function download(path, destination) {
     return new Promise((resolve, reject) => {
-        const req = http.get(RAW_PACKAGES_URL + path, res => {
+        const req = http.get(archivesBaseUrl + path, res => {
             if (res.statusCode < 200 || res.statusCode > 299) {
                 return reject(new Error(`Unexpected status code from GitHub: ${res.statusCode}`));
             }

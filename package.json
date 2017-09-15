@@ -8,6 +8,7 @@
     "check": "eslint .",
     "postinstall": "node postinstall.js"
   },
+  "archivesBaseUrl": "https://raw.githubusercontent.com/universalbasket/aws-lambda-chrome/master/builds",
   "archives": {
     "chromeFileName": "chrome-headless-lambda-linux-62.0.3181.0.tgz",
     "nssFileName": "nss-2017-08-10-990be4e30bf8.tgz"
