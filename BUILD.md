@@ -16,6 +16,8 @@ yum install -y git redhat-lsb python bzip2 tar pkgconfig atk-devel alsa-lib-deve
 
 Ingore yum warnings/errors.
 
+### Checkout Chromium sources
+
 ```bash
 git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
 echo "export PATH=$PATH:$HOME/depot_tools" >> ~/.bash_profile
@@ -26,6 +28,10 @@ cd src
 ```
 
 Note: Chrome version is available in `./chrome/VERSION`.
+
+### Patch few things
+
+You need to fix few things in Chromium source to make it work in a sandboxed environment of Lambda.
 
 Edit `./base/files/file_util_posix.cc`:
 
@@ -65,6 +71,8 @@ if (failed_polls++ == 3) {
 }
 */
 ```
+
+### Build
 
 Now let's build:
 
