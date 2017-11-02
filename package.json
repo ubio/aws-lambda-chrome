@@ -10,7 +10,7 @@
   },
   "archivesBaseUrl": "https://raw.githubusercontent.com/universalbasket/aws-lambda-chrome/master/builds",
   "archives": {
-    "chromeFileName": "chrome-headless-lambda-linux-62.0.3181.0.tgz",
+    "chromeFileName": "chrome-headless-aws-lambda-64.0.3257.0-x64.tgz",
     "nssFileName": "nss-2017-08-10-990be4e30bf8.tgz"
   },
   "repository": {
