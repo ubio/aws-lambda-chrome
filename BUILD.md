@@ -1,4 +1,6 @@
-## Build Your Chrome
+# Build
+
+## Chrome
 
 Create EC2 instance:
 
@@ -104,3 +106,44 @@ scp -i path/to/your/key-pair.pem ec2-user@<instance-hostname>:path/to/tarball ./
 ```
 
 Stop your huge EC2 instance to avoid charges!
+
+## NSS
+
+Start a smallish EC2 instance using the same AMI as lambda. You can find a link to it [here][1]. Build on the instance using the following (adapted from instructions found [here][2]):
+
+```shell
+sudo yum install mercurial
+sudo yum groupinstall 'Development Tools'
+sudo yum install zlib-devel
+
+hg clone https://hg.mozilla.org/projects/nspr
+hg clone https://hg.mozilla.org/projects/nss
+
+cd nss
+
+export BUILD_OPT=1
+export USE_64=1
+export NSDISTMODE=copy
+
+gmake nss_build_all
+```
+
+Remove any simlinks in the `dist` directory (they'll be links to .chk files) and tar it up for grabbing by scp.
+
+You'll need to scp it to your lambda project, unpack it, and rename its directory to `nss`. In your handler, update the process environment (before chrome is started):
+
+```javascript
+const fs = require('fs');
+const path = require('path');
+
+// This file contains the name of a versioned folder. By doing it this way we
+// can update the build without having to update hard-coded paths in Node.
+const subPath = fs.readFileSync(path.join(__dirname, 'nss', 'latest'), 'utf8').trim();
+const pathToNss = path.join(__dirname, 'nss', subPath);
+
+process.env.LD_LIBRARY_PATH = path.join(pathToNss, 'lib') +  ':' + process.env.LD_LIBRARY_PATH;
+process.env.PATH = path.join(pathToNss, 'bin') + ':' + process.env.PATH;
+```
+
+[1]: http://docs.aws.amazon.com/lambda/latest/dg/current-supported-versions.html
+[2]: https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS/Reference/Building_and_installing_NSS/Build_instructions
