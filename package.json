@@ -1,6 +1,6 @@
 {
   "name": "aws-lambda-chrome",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A lambda compatible build of headless chrome.",
   "main": "index.js",
   "scripts": {
